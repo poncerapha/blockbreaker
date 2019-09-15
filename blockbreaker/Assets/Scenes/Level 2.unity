@@ -859,7 +859,7 @@ PrefabInstance:
     - target: {fileID: 5410565328296562446, guid: 5fc7074f326366744b2eed47846d7521,
         type: 3}
       propertyPath: randomFactor
-      value: 0.5
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fc7074f326366744b2eed47846d7521, type: 3}
@@ -1462,7 +1462,7 @@ PrefabInstance:
     - target: {fileID: 5073338031327317550, guid: b391e06c93130438a94635f14d66fa59,
         type: 3}
       propertyPath: isAutoPlayEnabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b391e06c93130438a94635f14d66fa59, type: 3}
