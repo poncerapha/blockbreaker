@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
   [SerializeField] int pointsPerBlock = 20;
   [SerializeField] TextMeshProUGUI scoreText;
 
+  [SerializeField] bool isAutoPlayEnabled;
+
   [SerializeField] int currentScore = 0;
   // Start is called before the first frame update
 
@@ -46,6 +48,12 @@ public class GameManager : MonoBehaviour
   public void ResetScore()
   {
     Destroy(gameObject);
+  }
+
+  public bool IsAutoPlayEnabled()
+  {
+    return isAutoPlayEnabled;
+
   }
 
 
