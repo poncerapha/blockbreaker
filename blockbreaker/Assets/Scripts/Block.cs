@@ -5,82 +5,82 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-  [SerializeField] AudioClip breakSound;
+    [SerializeField] AudioClip breakSound;
 
-  [SerializeField] int currentHits;
-  [SerializeField] Sprite[] hitSprites;
+    [SerializeField] int currentHits;
+    [SerializeField] Sprite[] hitSprites;
 
-  LevelManager levelManager;
+    LevelManager levelManager;
 
-  GameManager gameManager;
+    GameManager gameManager;
 
-  private GameObject particle;
+    [SerializeField] GameObject particle;
 
 
-  private void Start()
-  {
-    levelManager = FindObjectOfType<LevelManager>();
-    gameManager = FindObjectOfType<GameManager>();
-    if (this.tag == "Breakable")
+    private void Start()
     {
-      levelManager.CountBlocks();
+        levelManager = FindObjectOfType<LevelManager>();
+        gameManager = FindObjectOfType<GameManager>();
+        if (this.tag == "Breakable")
+        {
+            levelManager.CountBlocks();
+
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (this.tag == "Breakable")
+        {
+            Debug.Log("Collision!!!");
+            HandleHit();
+
+        }
 
     }
-  }
-  private void OnCollisionEnter2D(Collision2D collision)
-  {
-    if (this.tag == "Breakable")
-    {
-      Debug.Log("Collision!!!");
-      HandleHit();
 
+    private void HandleHit()
+    {
+        currentHits++;
+        int maxHits = hitSprites.Length + 1;
+        if (currentHits >= maxHits)
+        {
+
+            DestroyBlock();
+
+        }
+        else
+        {
+            ShowNextHitSprite();
+        }
     }
 
-  }
-
-  private void HandleHit()
-  {
-    currentHits++;
-    int maxHits = hitSprites.Length + 1;
-    if (currentHits >= maxHits)
+    private void ShowNextHitSprite()
     {
+        int spriteIndex = currentHits - 1;
+        if (spriteIndex != null)
+        {
+            SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = hitSprites[spriteIndex];
 
-      DestroyBlock();
-
+        }
+        else
+        {
+            Debug.LogError("Block sprite is missing from array, the gameobject: " + this.gameObject.name);
+        }
     }
-    else
+
+    private void DestroyBlock()
     {
-      ShowNextHitSprite();
+        AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
+        gameManager.AddToScore();
+        Destroy(this.gameObject);
+        levelManager.BlockDestroyed();
+        TriggerParticle();
     }
-  }
 
-  private void ShowNextHitSprite()
-  {
-    int spriteIndex = currentHits - 1;
-    if (spriteIndex != null)
+    private void TriggerParticle()
     {
-      SpriteRenderer spriteRenderer = this.GetComponent<SpriteRenderer>();
-      spriteRenderer.sprite = hitSprites[spriteIndex];
-
+        GameObject particles = Instantiate(particle, transform.position, transform.rotation);
+        Destroy(particles, 1f);
     }
-    else
-    {
-      Debug.LogError("Block sprite is missing from array, the gameobject: " + this.gameObject.name);
-    }
-  }
-
-  private void DestroyBlock()
-  {
-    AudioSource.PlayClipAtPoint(breakSound, Camera.main.transform.position);
-    gameManager.AddToScore();
-    Destroy(this.gameObject);
-    levelManager.BlockDestroyed();
-    // TriggerParticle();
-  }
-
-  private void TriggerParticle()
-  {
-    GameObject particles = Instantiate(particle, transform.position, transform.rotation);
-    Destroy(particles, 1f);
-  }
 }

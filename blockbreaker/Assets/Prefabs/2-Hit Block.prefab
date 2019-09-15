@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakSound: {fileID: 8300000, guid: a12a1f6e4745b654daf36dd62e83c529, type: 3}
-  maxHit: 2
   currentHits: 0
   hitSprites:
   - {fileID: 21300000, guid: fceab1469679bb44c8f63c781da44003, type: 3}
+  particle: {fileID: 100000, guid: 7d846c02296ef4dc4abff04ce3e5262c, type: 3}
