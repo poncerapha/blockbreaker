@@ -43,7 +43,10 @@ public class GameManager : MonoBehaviour
     scoreText.text = currentScore.ToString();
   }
 
-
+  public void ResetScore()
+  {
+    Destroy(gameObject);
+  }
 
 
 }
